@@ -6,12 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" />
     <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
-    <title>Document</title>
+    <title>FilterDesign</title>
 </head>
 <body>
-    <py-script>
-for i in range(5):
-    print('Pythonで出力！')
-    </py-script>
-</body>
+  <form action="#" method="post">
+    <p>フィルタ特性<br>
+    <input type="text" name="name" size="15"></p>
+    <p>サンプリング周波数<br>
+    <input type="text" name="address" size="30"></p>
+    <p>カットオフ周波数<br>
+    <input type="text" name="address" size="30" value="ABC-"></p>
+    <p><input type="button" value="確認する" id="button2"></p>
+  </form>
+  </body>
 </html>
