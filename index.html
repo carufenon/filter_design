@@ -1,21 +1,108 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FilterDesign</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Filter Visualization</title>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <style>
+    body {
+      display: flex;
+      margin: 0;
+    }
+
+    #input-container {
+      text-align: left;
+      padding: 20px;
+      white-space: nowrap;
+      width: 300px; /* 入力フォームの幅を指定 */
+    }
+
+    #filter-form {
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .input-label {
+      margin-bottom: 5px;
+      white-space: nowrap;
+      display: inline-block;
+      min-width: 200px;
+    }
+
+    .input-group {
+      margin-bottom: 10px;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-group input,
+    .input-group select {
+      margin-left: 10px;
+    }
+
+    #graphs-container {
+      display: flex;
+      flex-direction: column; /* グラフを縦に配置 */
+      justify-content: space-between; /* グラフを上下に均等に配置 */
+      flex-grow: 1;
+    }
+
+    .graph-container {
+      height: 400px;
+      margin-bottom: 20px;
+    }
+  </style>
 </head>
 <body>
-  <h1>FilterDesign</h1>
-  <form action="#" method="post">
-    <p>フィルタ特性
-    <input type="text" name="name" size="15"></p>
-    <p>サンプリング周波数
-    <input type="text" name="address" size="30"></p>
-    <p>カットオフ周波数
-    <input type="text" name="address" size="30" value="ABC-"></p>
+  <div id="input-container">
+    <div id="1">
+      <div class="input-group">
+        <label for="filterLength" class="input-label">Filter Length (3-4095): </label>
+        <input type="number" id="filterLength" min="3" max="4095" value="64">
+      </div>
 
-    <p><input type="button" value="確認する" id="button2"></p>
-  </form>
-  </body>
+      <div class="input-group">
+        <label for="filterType" class="input-label">Filter Type: </label>
+        <select id="filterType">
+          <option value="LPF">LPF</option>
+          <option value="HPF">HPF</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <label for="windowType" class="input-label">Window Type: </label>
+        <select id="windowType">
+          <option value="Hamming">Hamming</option>
+          <option value="Hann">Hann</option>
+          <option value="Rectangular">Rectangular</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <label for="cutoffFrequency" class="input-label">Cutoff Frequency (0.0-0.5): </label>
+        <input type="number" id="cutoffFrequency" step="0.01" min="0.0" max="0.5" value="0.1">
+      </div>
+
+      <div class="input-group">
+        <button id="calculateButton" onclick="calculateAndVisualize()">Calculate and Visualize Filter</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="graphs-container">
+    <div class="graph-container">
+      <div id="filter-visualization"></div>
+    </div>
+    <div class="graph-container">
+      <div id="second-graph"></div>
+    </div>
+  </div>
+
+  <script src="calc_filter.js"></script>
+</body>
 </html>
+1
