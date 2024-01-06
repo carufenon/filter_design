@@ -6,6 +6,7 @@ document.getElementById('calculateButton').addEventListener('click', calculateAn
 const initialXData = [...Array(100).keys()];
 const initialYData = initialXData.map(x => Math.sin(x / 10.0));
 
+
 // グラフを初回描画
 Plotly.newPlot('filter-visualization', [{
   x: initialXData,
@@ -25,13 +26,46 @@ Plotly.newPlot('second-graph', [{
 function calculateAndVisualize() {
   // ボタンが押されたときの処理
 
-  // 新しいデータを生成（適切な処理に置き換えてください）
-
+  // 入力値取得
   var filter_length = document.getElementById('filterLength').value;
-  
+  var filter_type = document.getElementById('filterType').value;
+  var window_type = document.getElementById('windowType').value;
+  var norm_cutoff_freq = document.getElementById('cutoffFrequency').value;
 
-  const newXData = [...Array(100).keys()];
-  const newYData = newXData.map(x => filter_length * Math.sin(x / 10.0));
+  // LPF計算
+  tapn2 = Number((filter_length - 1)/2 + 1)
+  console.log(tapn2)
+  var tapArray = Array(tapn2)
+
+  coeff = 0
+  wHamming = 0
+  coeffWin = 0
+
+  for(let i = 1; i<tapn2; i++){
+    i = Number(i)
+    coeff = 1/(i*Math.PI) * Math.sin(2*i*Math.PI*norm_cutoff_freq)
+    console.log("coeff" + coeff)
+    if(window_type == "Hamming"){
+        wHamming = 0.54 + 0.46*Math.cos((i*Math.PI)/(tapn2-1))
+    }
+    console.log("hamming" + wHamming)
+    coeffWin = coeff * wHamming
+    console.log("i = " + i + ", FIR:", + coeffWin);
+    tapArray[i] = coeffWin
+  }
+  tapArray[0] = norm_cutoff_freq * 2
+  // 前半部分の配列を生成
+  tapArray_1 = tapArray.slice()
+  tapArray_1 = tapArray_1.reverse()
+  // 後半部分の配列を生成
+  tapArray_2 = tapArray.slice()
+  tapArray_2.shift()
+  fircoef_lpf = tapArray_1.concat(tapArray_2)
+  console.log(fircoef_lpf)
+
+  // tapn2 + 1 ～ filter_length分の連番配列を生成
+  const newXData = [...Array(Number(filter_length))].map((_, i) => i - tapn2 + 1)
+  const newYData = fircoef_lpf
 
   // 既存のグラフを更新
   Plotly.update('filter-visualization', {

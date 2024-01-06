@@ -53,7 +53,8 @@
 
     .graph-container {
       height: 400px;
-      margin-bottom: 20px;
+      width: 800px;
+      margin-bottom: 10px;
     }
   </style>
 </head>
@@ -62,7 +63,7 @@
     <div id="1">
       <div class="input-group">
         <label for="filterLength" class="input-label">Filter Length (3-4095): </label>
-        <input type="number" id="filterLength" min="3" max="4095" value="64">
+        <input type="number" id="filterLength" min="3" max="4095" value="31">
       </div>
 
       <div class="input-group">
@@ -84,7 +85,7 @@
 
       <div class="input-group">
         <label for="cutoffFrequency" class="input-label">Cutoff Frequency (0.0-0.5): </label>
-        <input type="number" id="cutoffFrequency" step="0.01" min="0.0" max="0.5" value="0.1">
+        <input type="number" id="cutoffFrequency" step="0.01" min="0.0" max="0.5" value="0.2267573696145125">
       </div>
 
       <div class="input-group">
@@ -105,4 +106,3 @@
   <script src="calc_filter.js"></script>
 </body>
 </html>
-1
