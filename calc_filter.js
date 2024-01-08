@@ -4,7 +4,7 @@
 // 配列データを表示する関数
 function displayData(data, listId) {
   var resultList = document.getElementById(listId);
-
+  resultList.innerHTML = '';
   // 配列データをループしてリストアイテムに追加
   for (var i = 0; i < data.length; i++) {
       var listItem = document.createElement('li');
@@ -14,13 +14,26 @@ function displayData(data, listId) {
 }
 
 
-
-document.getElementById('calculateButton').addEventListener('click', calculateAndVisualize);
+// この文があると２回実行されるため削除した。
+// document.getElementById('calculateButton').addEventListener('click', calculateAndVisualize);
 
 // 初期のデータを用意
 const initialXData = [...Array(100).keys()];
 const initialYData = initialXData.map(x => Math.sin(x / 10.0));
 
+// 1st graph
+var layout1 = {
+  title: 'TEST1',
+  showlegend: false,
+  bordercolor: "black"
+};
+
+// 2nd graph
+var layout2 = {
+  title: 'TEST2',
+  showlegend: false,
+  bordercolor: "black"
+};
 
 // グラフを初回描画
 Plotly.newPlot('filter-visualization', [{
@@ -28,7 +41,8 @@ Plotly.newPlot('filter-visualization', [{
   y: initialYData,
   type: 'scatter',
   mode: 'lines',
-}]);
+}],
+layout1, {displayModeBar: false});
 
 // 2つ目のグラフも初回描画
 Plotly.newPlot('second-graph', [{
@@ -36,10 +50,12 @@ Plotly.newPlot('second-graph', [{
   y: initialYData,
   type: 'scatter',
   mode: 'lines',
-}]);
+}],
+layout2,{displayModeBar: false});
 
+
+// ボタンが押されたときの処理
 function calculateAndVisualize() {
-  // ボタンが押されたときの処理
 
   // 入力値取得
   var filter_length = document.getElementById('filterLength').value;
@@ -84,6 +100,11 @@ function calculateAndVisualize() {
     y: [newYData],
   });
 
+
+  // フィルタ係数を表示
+  displayData(fircoef_lpf, 'resultList');
+
+
   // 2つ目のグラフも更新
   Plotly.update('second-graph', {
     x: [newXData],
@@ -91,6 +112,5 @@ function calculateAndVisualize() {
   });
 
 
-  // フィルタ係数を表示
-  displayData(10, 'resultList');
+
 }

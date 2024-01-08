@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-body {
+main {
   display: flex;
   margin: 0;
 }
@@ -9,7 +9,8 @@ body {
   text-align: left;
   padding: 20px;
   white-space: nowrap;
-  width: 300px; /* 入力フォームの幅を指定 */
+  /* 入力フォームの幅を指定 */
+  width: 400px;
 }
 
 #result-container {
@@ -19,11 +20,6 @@ body {
   white-space: nowrap;
   width: 300px; /* 入力フォームの幅を指定 */
 }
-
-.result-container {
-  margin-top: 20px; /* 適宜調整 */
-}
-
 
 #filter-form {
   text-align: left;
@@ -36,7 +32,7 @@ body {
   margin-bottom: 5px;
   white-space: nowrap;
   display: inline-block;
-  min-width: 200px;
+  min-width: 250px;
 }
 
 .input-group {
@@ -51,10 +47,16 @@ body {
   margin-left: 10px;
 }
 
+.result-group {
+  margin-top: 20px; /* 適宜調整 */
+}
+
 #graphs-container {
   display: flex;
-  flex-direction: column; /* グラフを縦に配置 */
-  justify-content: space-between; /* グラフを上下に均等に配置 */
+  /* グラフを縦に配置 */
+  flex-direction: column;
+  /* グラフを上下に均等に配置 */
+  justify-content: space-between;
   flex-grow: 1;
 }
 

@@ -9,62 +9,66 @@
 </head>
 
 <body>
-  <div id="input-container">
-    <div class="input-group">
-      <label for="filterLength" class="input-label">Filter Length (3-4095): </label>
-      <input type="number" id="filterLength" min="3" max="4095" value="31">
+  <header></header>
+  <main>
+    <div id="input-container">
+      <div class="input-group">
+        <label for="filterLength" class="input-label">Filter Length (3-4095): </label>
+        <input type="number" id="filterLength" min="3" max="4095" value="31">
+      </div>
+
+      <div class="input-group">
+        <label for="filterType" class="input-label">Filter Type: </label>
+        <select id="filterType">
+          <option value="LPF">LPF</option>
+          <option value="HPF">HPF</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <label for="windowType" class="input-label">Window Type: </label>
+        <select id="windowType">
+          <option value="Hamming">Hamming</option>
+          <option value="Hann">Hann</option>
+          <option value="Rectangular">Rectangular</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <label for="cutoffFrequency" class="input-label">Cutoff Frequency (0.0-0.5): </label>
+        <input type="number" id="cutoffFrequency" step="0.01" min="0.0" max="0.5" value="0.2267573696145125">
+      </div>
+
+      <div class="input-group">
+        <button id="calculateButton" onclick="calculateAndVisualize()">Calculate and Visualize Filter</button>
+      </div>
     </div>
 
-    <div class="input-group">
-      <label for="filterType" class="input-label">Filter Type: </label>
-      <select id="filterType">
-        <option value="LPF">LPF</option>
-        <option value="HPF">HPF</option>
-      </select>
+
+    <div id="result-container">
+      <div class="result-group">
+        <label for="filter_coef" class="filter_coef">Filter Coeff: </label>
+        <div id="filter-result"></div>
+        <ul id="resultList"></ul>
+      </div>
     </div>
 
-    <div class="input-group">
-      <label for="windowType" class="input-label">Window Type: </label>
-      <select id="windowType">
-        <option value="Hamming">Hamming</option>
-        <option value="Hann">Hann</option>
-        <option value="Rectangular">Rectangular</option>
-      </select>
+
+    <div id="graphs-container">
+      <div class="graph-container">
+        <div id="filter-visualization"></div>
+      </div>
+      <div class="graph-container">
+        <div id="second-graph"></div>
+      </div>
     </div>
 
-    <div class="input-group">
-      <label for="cutoffFrequency" class="input-label">Cutoff Frequency (0.0-0.5): </label>
-      <input type="number" id="cutoffFrequency" step="0.01" min="0.0" max="0.5" value="0.2267573696145125">
-    </div>
-
-    <div class="input-group">
-      <button id="calculateButton" onclick="calculateAndVisualize()">Calculate and Visualize Filter</button>
-    </div>
-  </div>
-
-
-  <div id="result-container">
-    <div class="result-container">
-      <label for="filter_coef" class="filter_coef">Filter Coeff: </label>
-      <div id="filter-result"></div>
-      <ul id="resultList"></ul>
-    </div>
-  </div>
-
-
-  <div id="graphs-container">
-    <div class="graph-container">
-      <div id="filter-visualization"></div>
-    </div>
-    <div class="graph-container">
-      <div id="second-graph"></div>
-    </div>
-  </div>
 
 
 
 
-
-  <script src="calc_filter.js"></script>
+    <script src="calc_filter.js"></script>
+  </main>
+  <footer></footer>
 </body>
 </html>
