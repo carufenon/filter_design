@@ -1,5 +1,20 @@
 // calc_filter.js
 
+
+// 配列データを表示する関数
+function displayData(data, listId) {
+  var resultList = document.getElementById(listId);
+
+  // 配列データをループしてリストアイテムに追加
+  for (var i = 0; i < data.length; i++) {
+      var listItem = document.createElement('li');
+      listItem.textContent = data[i];
+      resultList.appendChild(listItem);
+  }
+}
+
+
+
 document.getElementById('calculateButton').addEventListener('click', calculateAndVisualize);
 
 // 初期のデータを用意
@@ -34,7 +49,6 @@ function calculateAndVisualize() {
 
   // LPF計算
   tapn2 = Number((filter_length - 1)/2 + 1)
-  console.log(tapn2)
   var tapArray = Array(tapn2)
 
   coeff = 0
@@ -44,13 +58,10 @@ function calculateAndVisualize() {
   for(let i = 1; i<tapn2; i++){
     i = Number(i)
     coeff = 1/(i*Math.PI) * Math.sin(2*i*Math.PI*norm_cutoff_freq)
-    console.log("coeff" + coeff)
     if(window_type == "Hamming"){
         wHamming = 0.54 + 0.46*Math.cos((i*Math.PI)/(tapn2-1))
     }
-    console.log("hamming" + wHamming)
     coeffWin = coeff * wHamming
-    console.log("i = " + i + ", FIR:", + coeffWin);
     tapArray[i] = coeffWin
   }
   tapArray[0] = norm_cutoff_freq * 2
@@ -78,4 +89,8 @@ function calculateAndVisualize() {
     x: [newXData],
     y: [newYData],
   });
+
+
+  // フィルタ係数を表示
+  displayData(10, 'resultList');
 }
